@@ -78,13 +78,16 @@ main(Population, Time, SP, Cf) ->
 
     Work = {seq, fun({{Home, Behaviour}, Agents}) ->
                          NewAgents = misc_util:meeting_proxy({Behaviour, Agents}, skel, SP, Cf),
-                         [{Home, A} || A <- NewAgents]
+                         Simple = [{Home, A} || A <- NewAgents],
+                         Tagged = lists:map(TagFun,
+                                           Simple),
+                         _Migrated = lists:map(MigrateFun,
+                                              Tagged)
                  end },
 
 
     Workflow = {pipe, [{seq, GLfun},
-                       {map, [Work,
-                              {seq, TMfun}], Workers},
+                       {map, [Work], Workers},
                        {seq, ShuffleFun}]},
 
     [_FinalIslands] = skel:do([{seq, TMfun},
