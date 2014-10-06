@@ -58,15 +58,22 @@ main(Population, Time, SP, Cf) ->
                      Chunks
              end,
 
+    ShuffleFun = fun(Agents) ->
+                         misc_util:shuffle(lists:flatten(Agents))
+                 end,
 
-    TMGL = fun (Agents) ->
-                   Tagged = lists:map(TagFun,
-                                      Agents),
-                   Migrated = lists:map(MigrateFun,
-                                        Tagged),
-                   Grouped = GroupFun(Migrated),
-                   LogFun(Grouped)
-           end,
+    GLfun = fun(Shuffled) ->
+                    Grouped = GroupFun(Shuffled),
+                    LogFun(Grouped)
+         end,
+
+
+    TMfun = fun (Agents) ->
+                 Tagged = lists:map(TagFun,
+                                    Agents),
+                 _Migrated = lists:map(MigrateFun,
+                                      Tagged)
+         end,
 
 
     Work = {seq, fun({{Home, Behaviour}, Agents}) ->
@@ -74,15 +81,14 @@ main(Population, Time, SP, Cf) ->
                          [{Home, A} || A <- NewAgents]
                  end },
 
-    Shuffle = {seq, fun(Agents) ->
-                            misc_util:shuffle(lists:flatten(Agents))
-                    end},
 
-    Workflow = {pipe, [{seq, TMGL},
-                       {map, [Work], Workers},
-                       Shuffle]},
+    Workflow = {pipe, [{seq, GLfun},
+                       {map, [Work,
+                              {seq, TMfun}], Workers},
+                       {seq, ShuffleFun}]},
 
-    [_FinalIslands] = skel:do([{feedback,
+    [_FinalIslands] = skel:do([{seq, TMfun},
+                               {feedback,
                                 [Workflow],
                                 _While = fun(Agents) ->
                                                  Fitness = lists:max([Fitness || {_, {_, Fitness, _}} <- Agents]),
