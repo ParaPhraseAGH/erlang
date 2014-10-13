@@ -65,11 +65,16 @@ main(Population, Time, SP, Cf) ->
 
 
     Work = {seq, fun({{Home, Behaviour}, Agents}) ->
+                         if Behaviour == reproduction ->
+                             io:format("~p,",[self()]);
+                             true -> ok
+                         end,
                          NewAgents = misc_util:meeting_proxy({Behaviour, Agents}, skel, SP, Cf),
                          [{Home, A} || A <- NewAgents]
                  end },
 
     Shuffle = {seq, fun(Agents) ->
+                            io:format("~n"),
                             misc_util:shuffle(lists:flatten(Agents))
                     end},
 
