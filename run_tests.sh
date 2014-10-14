@@ -27,14 +27,14 @@ run () {
 
 output_dir="output"
 # rtime=120000
-rtime=5000
+rtime=2000
 
 # cores="1 2 4"
 cores="4"
 # run_repeat=3
 run_repeat=1
-skel_workers="4 8"
-models="skel_main" # "sequential"
+skel_workers=8
+models="skel_main sequential concurrent hybrid"
 # models="hybrid"
 
 output_root=$output_dir/tests
