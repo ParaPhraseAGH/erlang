@@ -14,7 +14,7 @@ all() ->
     [simple_run].
 
 
-init_per_testcase( _Any, _Config) ->
+init_per_testcase(_Any, _Config) ->
     _Config.
 
 end_per_testcase(_Any, _Config) ->
@@ -23,9 +23,12 @@ end_per_testcase(_Any, _Config) ->
 
 
 simple_run(_Config) ->
-    [emas:start(Backend,
-                1000) || Backend <- [%skel_main,
-                                     %sequential,
-                                     hybrid,
-                                     concurrent
-                                    ] ].
+    [begin
+         emas:start(Backend,
+                    1000),
+         timer:sleep(2000) % wait for global loger to stop
+     end || Backend <- [skel_main,
+                        sequential,
+                        hybrid,
+                        concurrent
+                       ]].
