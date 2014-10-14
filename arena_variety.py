@@ -14,9 +14,11 @@ def read_file(filename):
 			diff = WORKERS - len(c)
 			if diff != 0:
 				c.extend([0] * diff)
-			# print c
 
-			data.append(gini(c))
+			gini_coef = gini(c)
+			print c, gini_coef
+
+			data.append(gini_coef)
 	return data
 
 def gini(list_of_values):
@@ -29,7 +31,7 @@ def gini(list_of_values):
 	return (fair_area - area) / fair_area
 
 def main():
-	data = read_file('arenas11.csv')
+	data = read_file('arenas12.csv')
 	print max(data), min(data)
 	print sum(data) / len(data)
 
