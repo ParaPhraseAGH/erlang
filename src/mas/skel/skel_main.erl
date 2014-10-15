@@ -137,7 +137,9 @@ log_funstats(Groups, Cf) ->
     ok.
 
 
-
+%% @doc Function seeds process only one time.  Uses process dictionary
+%% and side effects.
+-spec seed_random_once_per_process() -> ok.
 seed_random_once_per_process() ->
     case get(was_seeded) of
         undefined ->

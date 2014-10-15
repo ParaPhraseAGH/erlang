@@ -69,7 +69,7 @@ one_process_should_call_random_only_once(_Conf) ->
     meck:wait(1, misc_util, seed_random, 0, 2000),
     %% and __only__ once
     try
-        should_timeout = meck:wait(2, misc_util, seed_random, 0, 2000)
+        should_timeout = meck:wait(2, misc_util, seed_random, 0, 500)
     catch
         error:timeout ->
             ok

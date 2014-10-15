@@ -7,7 +7,7 @@ ERL=erl
 
 REBAR=./rebar
 
-.PHONY: all compile doc clean test dialyzer typer shell distclean pdf \
+.PHONY: all compile doc clean test simple_run dialyzer typer shell distclean pdf \
 	update-deps
 
 all: deps compile
