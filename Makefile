@@ -28,8 +28,6 @@ doc:
 
 test: all
 	$(REBAR) ct
-
-simple_run: all
 	./run_tests.sh
 
 $(DEPS_PLT):
