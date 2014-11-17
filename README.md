@@ -2,6 +2,21 @@ erlang
 ======
 [![Build Status](https://secure.travis-ci.org/ParaPhraseAGH/erlang.svg?branch=master "Build Status")](http://travis-ci.org/ParaPhraseAGH/erlang)
 
+# Important
+
+UPDATE: THIS REPOSITORY IS DEPRECATED. IT WON'T BE UPDATED AND WILL BE REMOVED.
+
+This project has been split up into several repositories:
+* implementation of the EMAS algorithm, see [erlang-emas](https://github.com/ParaPhraseAGH/erlang-emas)
+* underlying multi agent framework was extracted and generalized in [erlang-mas](https://github.com/ParaPhraseAGH/erlang-mas)
+* other projects using custom genetic operators using EMAS to find solutions for given problems, such as:
+    * finding the minimum of the Rastrigin function, see [rastrigin-emas](https://github.com/ParaPhraseAGH/rastrigin-emas)
+    * solving the [LABS](# "Low Autocorrelation Binary Sequences") problem, see [labs-emas](https://github.com/ParaPhraseAGH/labs-emas)
+
+There is also a ["Getting started" guide](https://github.com/ParaPhraseAGH/erlang-emas/wiki/Tutorial) which helps you write your own operators for the genetic algorithm using EMAS and underlying framework in the new way.
+
+## Description
+
 The ParaPhrase project aims to produce a new structured design and implementation process for heterogeneous parallel architectures, where developers exploit a variety of parallel patterns to develop component based applications that can be mapped to the available hardware resources, and which may then be dynamically re-mapped to meet application needs and hardware availability.
 
 By using the massive and efficient parallelism enabled by ParaPhrase technologies, this work allows to achieve significant speedups of individual agents as well as build much bigger multi-agent systems.
